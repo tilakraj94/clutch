@@ -102,7 +102,7 @@ message FaultTargeting {
   }
 }
 
-/// Enforce faults on an upstream.
+// Enforce faults on an upstream.
 message UpstreamEnforcing {
   // An upstream responsible for enforcing a fault.
   oneof upstream_type {
@@ -123,7 +123,7 @@ message UpstreamEnforcing {
   }
 }
 
-/// Enforce faults on a downstream.
+// Enforce faults on a downstream.
 message DownstreamEnforcing {
   // An upstream responsible for enforcing a fault.
   oneof upstream_type {
