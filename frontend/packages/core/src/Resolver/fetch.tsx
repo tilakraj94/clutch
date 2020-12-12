@@ -55,12 +55,17 @@ const resolveResource = async (
     [key: string]: any;
   },
   onResolve: (resultObjects: any[], failureMessages: string[]) => void,
-  onError: (message: string) => void
+  onError: (message: string) => void,
+  apiProto?: any
 ) => {
   const resolver = fields?.query !== undefined ? resolveQuery : resolveFields;
   return resolver(type, limit, fields)
     .then(({ results, failures }) => {
-      const resultObjects = results.map(result => _.get($pbclutch, type).fromObject(result));
+	  let pbClutch = _.get($pbclutch, type);
+      if (apiProto) {
+        pbClutch = _.get(apiProto, type);
+      }
+      const resultObjects = results.map(result => pbClutch.fromObject(result));
       const failureMessages = failures.map(failure => parseErrorMessage(failure.message).summary);
       if (_.some(resultObjects) !== undefined) {
         onResolve(resultObjects, failureMessages);
@@ -69,7 +74,7 @@ const resolveResource = async (
     .catch(err => {
       if (err?.response === undefined) {
         // Some runtime error we don't know how to handle.
-        onError(`Internal Client Error: '${err.message}'. Please contact the workflow developer.`);
+        onError(`Internal Client Error: '${err.message}' type: '${type}' . Please contact the workflow developer.`);
         return;
       }
 

@@ -20014,7 +20014,676 @@ export const clutch = $root.clutch = (() => {
                  * @variation 2
                  */
 
+                /**
+                 * Callback as used by {@link clutch.k8s.v1.K8sAPI#deleteFacet}.
+                 * @memberof clutch.k8s.v1.K8sAPI
+                 * @typedef DeleteFacetCallback
+                 * @type {function}
+                 * @param {Error|null} error Error, if any
+                 * @param {clutch.k8s.v1.DeleteFacetResponse} [response] DeleteFacetResponse
+                 */
+
+                /**
+                 * Calls DeleteFacet.
+                 * @function deleteFacet
+                 * @memberof clutch.k8s.v1.K8sAPI
+                 * @instance
+                 * @param {clutch.k8s.v1.IDeleteFacetRequest} request DeleteFacetRequest message or plain object
+                 * @param {clutch.k8s.v1.K8sAPI.DeleteFacetCallback} callback Node-style callback called with the error, if any, and DeleteFacetResponse
+                 * @returns {undefined}
+                 * @variation 1
+                 */
+                Object.defineProperty(K8sAPI.prototype.deleteFacet = function deleteFacet(request, callback) {
+                    return this.rpcCall(deleteFacet, $root.clutch.k8s.v1.DeleteFacetRequest, $root.clutch.k8s.v1.DeleteFacetResponse, request, callback);
+                }, "name", { value: "DeleteFacet" });
+
+                /**
+                 * Calls DeleteFacet.
+                 * @function deleteFacet
+                 * @memberof clutch.k8s.v1.K8sAPI
+                 * @instance
+                 * @param {clutch.k8s.v1.IDeleteFacetRequest} request DeleteFacetRequest message or plain object
+                 * @returns {Promise<clutch.k8s.v1.DeleteFacetResponse>} Promise
+                 * @variation 2
+                 */
+
                 return K8sAPI;
+            })();
+
+            v1.Facet = (function() {
+
+                /**
+                 * Properties of a Facet.
+                 * @memberof clutch.k8s.v1
+                 * @interface IFacet
+                 * @property {string|null} [cluster] Facet cluster
+                 * @property {string|null} [name] Facet name
+                 * @property {string|null} [namespace] Facet namespace
+                 * @property {clutch.k8s.v1.IServiceFacet|null} [serviceFacet] Facet serviceFacet
+                 */
+
+                /**
+                 * Constructs a new Facet.
+                 * @memberof clutch.k8s.v1
+                 * @classdesc Represents a Facet.
+                 * @implements IFacet
+                 * @constructor
+                 * @param {clutch.k8s.v1.IFacet=} [properties] Properties to set
+                 */
+                function Facet(properties) {
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * Facet cluster.
+                 * @member {string} cluster
+                 * @memberof clutch.k8s.v1.Facet
+                 * @instance
+                 */
+                Facet.prototype.cluster = "";
+
+                /**
+                 * Facet name.
+                 * @member {string} name
+                 * @memberof clutch.k8s.v1.Facet
+                 * @instance
+                 */
+                Facet.prototype.name = "";
+
+                /**
+                 * Facet namespace.
+                 * @member {string} namespace
+                 * @memberof clutch.k8s.v1.Facet
+                 * @instance
+                 */
+                Facet.prototype.namespace = "";
+
+                /**
+                 * Facet serviceFacet.
+                 * @member {clutch.k8s.v1.IServiceFacet|null|undefined} serviceFacet
+                 * @memberof clutch.k8s.v1.Facet
+                 * @instance
+                 */
+                Facet.prototype.serviceFacet = null;
+
+                // OneOf field names bound to virtual getters and setters
+                let $oneOfFields;
+
+                /**
+                 * Facet type.
+                 * @member {"serviceFacet"|undefined} type
+                 * @memberof clutch.k8s.v1.Facet
+                 * @instance
+                 */
+                Object.defineProperty(Facet.prototype, "type", {
+                    get: $util.oneOfGetter($oneOfFields = ["serviceFacet"]),
+                    set: $util.oneOfSetter($oneOfFields)
+                });
+
+                /**
+                 * Verifies a Facet message.
+                 * @function verify
+                 * @memberof clutch.k8s.v1.Facet
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                Facet.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    let properties = {};
+                    if (message.cluster != null && message.hasOwnProperty("cluster"))
+                        if (!$util.isString(message.cluster))
+                            return "cluster: string expected";
+                    if (message.name != null && message.hasOwnProperty("name"))
+                        if (!$util.isString(message.name))
+                            return "name: string expected";
+                    if (message.namespace != null && message.hasOwnProperty("namespace"))
+                        if (!$util.isString(message.namespace))
+                            return "namespace: string expected";
+                    if (message.serviceFacet != null && message.hasOwnProperty("serviceFacet")) {
+                        properties.type = 1;
+                        {
+                            let error = $root.clutch.k8s.v1.ServiceFacet.verify(message.serviceFacet);
+                            if (error)
+                                return "serviceFacet." + error;
+                        }
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates a Facet message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof clutch.k8s.v1.Facet
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {clutch.k8s.v1.Facet} Facet
+                 */
+                Facet.fromObject = function fromObject(object) {
+                    if (object instanceof $root.clutch.k8s.v1.Facet)
+                        return object;
+                    let message = new $root.clutch.k8s.v1.Facet();
+                    if (object.cluster != null)
+                        message.cluster = String(object.cluster);
+                    if (object.name != null)
+                        message.name = String(object.name);
+                    if (object.namespace != null)
+                        message.namespace = String(object.namespace);
+                    if (object.serviceFacet != null) {
+                        if (typeof object.serviceFacet !== "object")
+                            throw TypeError(".clutch.k8s.v1.Facet.serviceFacet: object expected");
+                        message.serviceFacet = $root.clutch.k8s.v1.ServiceFacet.fromObject(object.serviceFacet);
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a Facet message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof clutch.k8s.v1.Facet
+                 * @static
+                 * @param {clutch.k8s.v1.Facet} message Facet
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                Facet.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    let object = {};
+                    if (options.defaults) {
+                        object.cluster = "";
+                        object.name = "";
+                        object.namespace = "";
+                    }
+                    if (message.cluster != null && message.hasOwnProperty("cluster"))
+                        object.cluster = message.cluster;
+                    if (message.name != null && message.hasOwnProperty("name"))
+                        object.name = message.name;
+                    if (message.namespace != null && message.hasOwnProperty("namespace"))
+                        object.namespace = message.namespace;
+                    if (message.serviceFacet != null && message.hasOwnProperty("serviceFacet")) {
+                        object.serviceFacet = $root.clutch.k8s.v1.ServiceFacet.toObject(message.serviceFacet, options);
+                        if (options.oneofs)
+                            object.type = "serviceFacet";
+                    }
+                    return object;
+                };
+
+                /**
+                 * Converts this Facet to JSON.
+                 * @function toJSON
+                 * @memberof clutch.k8s.v1.Facet
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                Facet.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return Facet;
+            })();
+
+            v1.ServiceFacet = (function() {
+
+                /**
+                 * Properties of a ServiceFacet.
+                 * @memberof clutch.k8s.v1
+                 * @interface IServiceFacet
+                 * @property {clutch.k8s.v1.IDeployment|null} [deployment] ServiceFacet deployment
+                 * @property {clutch.k8s.v1.IHPA|null} [hpa] ServiceFacet hpa
+                 * @property {clutch.k8s.v1.IService|null} [service] ServiceFacet service
+                 */
+
+                /**
+                 * Constructs a new ServiceFacet.
+                 * @memberof clutch.k8s.v1
+                 * @classdesc Represents a ServiceFacet.
+                 * @implements IServiceFacet
+                 * @constructor
+                 * @param {clutch.k8s.v1.IServiceFacet=} [properties] Properties to set
+                 */
+                function ServiceFacet(properties) {
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * ServiceFacet deployment.
+                 * @member {clutch.k8s.v1.IDeployment|null|undefined} deployment
+                 * @memberof clutch.k8s.v1.ServiceFacet
+                 * @instance
+                 */
+                ServiceFacet.prototype.deployment = null;
+
+                /**
+                 * ServiceFacet hpa.
+                 * @member {clutch.k8s.v1.IHPA|null|undefined} hpa
+                 * @memberof clutch.k8s.v1.ServiceFacet
+                 * @instance
+                 */
+                ServiceFacet.prototype.hpa = null;
+
+                /**
+                 * ServiceFacet service.
+                 * @member {clutch.k8s.v1.IService|null|undefined} service
+                 * @memberof clutch.k8s.v1.ServiceFacet
+                 * @instance
+                 */
+                ServiceFacet.prototype.service = null;
+
+                /**
+                 * Verifies a ServiceFacet message.
+                 * @function verify
+                 * @memberof clutch.k8s.v1.ServiceFacet
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                ServiceFacet.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.deployment != null && message.hasOwnProperty("deployment")) {
+                        let error = $root.clutch.k8s.v1.Deployment.verify(message.deployment);
+                        if (error)
+                            return "deployment." + error;
+                    }
+                    if (message.hpa != null && message.hasOwnProperty("hpa")) {
+                        let error = $root.clutch.k8s.v1.HPA.verify(message.hpa);
+                        if (error)
+                            return "hpa." + error;
+                    }
+                    if (message.service != null && message.hasOwnProperty("service")) {
+                        let error = $root.clutch.k8s.v1.Service.verify(message.service);
+                        if (error)
+                            return "service." + error;
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates a ServiceFacet message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof clutch.k8s.v1.ServiceFacet
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {clutch.k8s.v1.ServiceFacet} ServiceFacet
+                 */
+                ServiceFacet.fromObject = function fromObject(object) {
+                    if (object instanceof $root.clutch.k8s.v1.ServiceFacet)
+                        return object;
+                    let message = new $root.clutch.k8s.v1.ServiceFacet();
+                    if (object.deployment != null) {
+                        if (typeof object.deployment !== "object")
+                            throw TypeError(".clutch.k8s.v1.ServiceFacet.deployment: object expected");
+                        message.deployment = $root.clutch.k8s.v1.Deployment.fromObject(object.deployment);
+                    }
+                    if (object.hpa != null) {
+                        if (typeof object.hpa !== "object")
+                            throw TypeError(".clutch.k8s.v1.ServiceFacet.hpa: object expected");
+                        message.hpa = $root.clutch.k8s.v1.HPA.fromObject(object.hpa);
+                    }
+                    if (object.service != null) {
+                        if (typeof object.service !== "object")
+                            throw TypeError(".clutch.k8s.v1.ServiceFacet.service: object expected");
+                        message.service = $root.clutch.k8s.v1.Service.fromObject(object.service);
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a ServiceFacet message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof clutch.k8s.v1.ServiceFacet
+                 * @static
+                 * @param {clutch.k8s.v1.ServiceFacet} message ServiceFacet
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                ServiceFacet.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    let object = {};
+                    if (options.defaults) {
+                        object.deployment = null;
+                        object.hpa = null;
+                        object.service = null;
+                    }
+                    if (message.deployment != null && message.hasOwnProperty("deployment"))
+                        object.deployment = $root.clutch.k8s.v1.Deployment.toObject(message.deployment, options);
+                    if (message.hpa != null && message.hasOwnProperty("hpa"))
+                        object.hpa = $root.clutch.k8s.v1.HPA.toObject(message.hpa, options);
+                    if (message.service != null && message.hasOwnProperty("service"))
+                        object.service = $root.clutch.k8s.v1.Service.toObject(message.service, options);
+                    return object;
+                };
+
+                /**
+                 * Converts this ServiceFacet to JSON.
+                 * @function toJSON
+                 * @memberof clutch.k8s.v1.ServiceFacet
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                ServiceFacet.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return ServiceFacet;
+            })();
+
+            v1.DeleteFacetRequest = (function() {
+
+                /**
+                 * Properties of a DeleteFacetRequest.
+                 * @memberof clutch.k8s.v1
+                 * @interface IDeleteFacetRequest
+                 * @property {string|null} [clientset] DeleteFacetRequest clientset
+                 * @property {string|null} [cluster] DeleteFacetRequest cluster
+                 * @property {string|null} [namespace] DeleteFacetRequest namespace
+                 * @property {string|null} [name] DeleteFacetRequest name
+                 * @property {clutch.k8s.v1.DeleteFacetRequest.Type|null} [type] DeleteFacetRequest type
+                 */
+
+                /**
+                 * Constructs a new DeleteFacetRequest.
+                 * @memberof clutch.k8s.v1
+                 * @classdesc Represents a DeleteFacetRequest.
+                 * @implements IDeleteFacetRequest
+                 * @constructor
+                 * @param {clutch.k8s.v1.IDeleteFacetRequest=} [properties] Properties to set
+                 */
+                function DeleteFacetRequest(properties) {
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * DeleteFacetRequest clientset.
+                 * @member {string} clientset
+                 * @memberof clutch.k8s.v1.DeleteFacetRequest
+                 * @instance
+                 */
+                DeleteFacetRequest.prototype.clientset = "";
+
+                /**
+                 * DeleteFacetRequest cluster.
+                 * @member {string} cluster
+                 * @memberof clutch.k8s.v1.DeleteFacetRequest
+                 * @instance
+                 */
+                DeleteFacetRequest.prototype.cluster = "";
+
+                /**
+                 * DeleteFacetRequest namespace.
+                 * @member {string} namespace
+                 * @memberof clutch.k8s.v1.DeleteFacetRequest
+                 * @instance
+                 */
+                DeleteFacetRequest.prototype.namespace = "";
+
+                /**
+                 * DeleteFacetRequest name.
+                 * @member {string} name
+                 * @memberof clutch.k8s.v1.DeleteFacetRequest
+                 * @instance
+                 */
+                DeleteFacetRequest.prototype.name = "";
+
+                /**
+                 * DeleteFacetRequest type.
+                 * @member {clutch.k8s.v1.DeleteFacetRequest.Type} type
+                 * @memberof clutch.k8s.v1.DeleteFacetRequest
+                 * @instance
+                 */
+                DeleteFacetRequest.prototype.type = 0;
+
+                /**
+                 * Verifies a DeleteFacetRequest message.
+                 * @function verify
+                 * @memberof clutch.k8s.v1.DeleteFacetRequest
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                DeleteFacetRequest.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.clientset != null && message.hasOwnProperty("clientset"))
+                        if (!$util.isString(message.clientset))
+                            return "clientset: string expected";
+                    if (message.cluster != null && message.hasOwnProperty("cluster"))
+                        if (!$util.isString(message.cluster))
+                            return "cluster: string expected";
+                    if (message.namespace != null && message.hasOwnProperty("namespace"))
+                        if (!$util.isString(message.namespace))
+                            return "namespace: string expected";
+                    if (message.name != null && message.hasOwnProperty("name"))
+                        if (!$util.isString(message.name))
+                            return "name: string expected";
+                    if (message.type != null && message.hasOwnProperty("type"))
+                        switch (message.type) {
+                        default:
+                            return "type: enum value expected";
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 4:
+                        case 5:
+                        case 6:
+                            break;
+                        }
+                    return null;
+                };
+
+                /**
+                 * Creates a DeleteFacetRequest message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof clutch.k8s.v1.DeleteFacetRequest
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {clutch.k8s.v1.DeleteFacetRequest} DeleteFacetRequest
+                 */
+                DeleteFacetRequest.fromObject = function fromObject(object) {
+                    if (object instanceof $root.clutch.k8s.v1.DeleteFacetRequest)
+                        return object;
+                    let message = new $root.clutch.k8s.v1.DeleteFacetRequest();
+                    if (object.clientset != null)
+                        message.clientset = String(object.clientset);
+                    if (object.cluster != null)
+                        message.cluster = String(object.cluster);
+                    if (object.namespace != null)
+                        message.namespace = String(object.namespace);
+                    if (object.name != null)
+                        message.name = String(object.name);
+                    switch (object.type) {
+                    case "UNSPECIFIED":
+                    case 0:
+                        message.type = 0;
+                        break;
+                    case "UNKNOWN":
+                    case 1:
+                        message.type = 1;
+                        break;
+                    case "SERVICE":
+                    case 2:
+                        message.type = 2;
+                        break;
+                    case "CRON":
+                    case 3:
+                        message.type = 3;
+                        break;
+                    case "BATCH":
+                    case 4:
+                        message.type = 4;
+                        break;
+                    case "STATEFUL_SERVICE":
+                    case 5:
+                        message.type = 5;
+                        break;
+                    case "WORKER":
+                    case 6:
+                        message.type = 6;
+                        break;
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a DeleteFacetRequest message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof clutch.k8s.v1.DeleteFacetRequest
+                 * @static
+                 * @param {clutch.k8s.v1.DeleteFacetRequest} message DeleteFacetRequest
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                DeleteFacetRequest.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    let object = {};
+                    if (options.defaults) {
+                        object.clientset = "";
+                        object.cluster = "";
+                        object.namespace = "";
+                        object.name = "";
+                        object.type = options.enums === String ? "UNSPECIFIED" : 0;
+                    }
+                    if (message.clientset != null && message.hasOwnProperty("clientset"))
+                        object.clientset = message.clientset;
+                    if (message.cluster != null && message.hasOwnProperty("cluster"))
+                        object.cluster = message.cluster;
+                    if (message.namespace != null && message.hasOwnProperty("namespace"))
+                        object.namespace = message.namespace;
+                    if (message.name != null && message.hasOwnProperty("name"))
+                        object.name = message.name;
+                    if (message.type != null && message.hasOwnProperty("type"))
+                        object.type = options.enums === String ? $root.clutch.k8s.v1.DeleteFacetRequest.Type[message.type] : message.type;
+                    return object;
+                };
+
+                /**
+                 * Converts this DeleteFacetRequest to JSON.
+                 * @function toJSON
+                 * @memberof clutch.k8s.v1.DeleteFacetRequest
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                DeleteFacetRequest.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                /**
+                 * Type enum.
+                 * @name clutch.k8s.v1.DeleteFacetRequest.Type
+                 * @enum {number}
+                 * @property {number} UNSPECIFIED=0 UNSPECIFIED value
+                 * @property {number} UNKNOWN=1 UNKNOWN value
+                 * @property {number} SERVICE=2 SERVICE value
+                 * @property {number} CRON=3 CRON value
+                 * @property {number} BATCH=4 BATCH value
+                 * @property {number} STATEFUL_SERVICE=5 STATEFUL_SERVICE value
+                 * @property {number} WORKER=6 WORKER value
+                 */
+                DeleteFacetRequest.Type = (function() {
+                    const valuesById = {}, values = Object.create(valuesById);
+                    values[valuesById[0] = "UNSPECIFIED"] = 0;
+                    values[valuesById[1] = "UNKNOWN"] = 1;
+                    values[valuesById[2] = "SERVICE"] = 2;
+                    values[valuesById[3] = "CRON"] = 3;
+                    values[valuesById[4] = "BATCH"] = 4;
+                    values[valuesById[5] = "STATEFUL_SERVICE"] = 5;
+                    values[valuesById[6] = "WORKER"] = 6;
+                    return values;
+                })();
+
+                return DeleteFacetRequest;
+            })();
+
+            v1.DeleteFacetResponse = (function() {
+
+                /**
+                 * Properties of a DeleteFacetResponse.
+                 * @memberof clutch.k8s.v1
+                 * @interface IDeleteFacetResponse
+                 */
+
+                /**
+                 * Constructs a new DeleteFacetResponse.
+                 * @memberof clutch.k8s.v1
+                 * @classdesc Represents a DeleteFacetResponse.
+                 * @implements IDeleteFacetResponse
+                 * @constructor
+                 * @param {clutch.k8s.v1.IDeleteFacetResponse=} [properties] Properties to set
+                 */
+                function DeleteFacetResponse(properties) {
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * Verifies a DeleteFacetResponse message.
+                 * @function verify
+                 * @memberof clutch.k8s.v1.DeleteFacetResponse
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                DeleteFacetResponse.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a DeleteFacetResponse message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof clutch.k8s.v1.DeleteFacetResponse
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {clutch.k8s.v1.DeleteFacetResponse} DeleteFacetResponse
+                 */
+                DeleteFacetResponse.fromObject = function fromObject(object) {
+                    if (object instanceof $root.clutch.k8s.v1.DeleteFacetResponse)
+                        return object;
+                    return new $root.clutch.k8s.v1.DeleteFacetResponse();
+                };
+
+                /**
+                 * Creates a plain object from a DeleteFacetResponse message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof clutch.k8s.v1.DeleteFacetResponse
+                 * @static
+                 * @param {clutch.k8s.v1.DeleteFacetResponse} message DeleteFacetResponse
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                DeleteFacetResponse.toObject = function toObject() {
+                    return {};
+                };
+
+                /**
+                 * Converts this DeleteFacetResponse to JSON.
+                 * @function toJSON
+                 * @memberof clutch.k8s.v1.DeleteFacetResponse
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                DeleteFacetResponse.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return DeleteFacetResponse;
             })();
 
             v1.DescribePodRequest = (function() {
@@ -28745,6 +29414,158 @@ export const clutch = $root.clutch = (() => {
                     };
 
                     return Service;
+                })();
+
+                v1.Facet = (function() {
+
+                    /**
+                     * Properties of a Facet.
+                     * @memberof clutch.resolver.k8s.v1
+                     * @interface IFacet
+                     * @property {string|null} [servicename] Facet servicename
+                     * @property {string|null} [environment] Facet environment
+                     * @property {string|null} [facet] Facet facet
+                     * @property {string|null} [type] Facet type
+                     */
+
+                    /**
+                     * Constructs a new Facet.
+                     * @memberof clutch.resolver.k8s.v1
+                     * @classdesc Represents a Facet.
+                     * @implements IFacet
+                     * @constructor
+                     * @param {clutch.resolver.k8s.v1.IFacet=} [properties] Properties to set
+                     */
+                    function Facet(properties) {
+                        if (properties)
+                            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * Facet servicename.
+                     * @member {string} servicename
+                     * @memberof clutch.resolver.k8s.v1.Facet
+                     * @instance
+                     */
+                    Facet.prototype.servicename = "";
+
+                    /**
+                     * Facet environment.
+                     * @member {string} environment
+                     * @memberof clutch.resolver.k8s.v1.Facet
+                     * @instance
+                     */
+                    Facet.prototype.environment = "";
+
+                    /**
+                     * Facet facet.
+                     * @member {string} facet
+                     * @memberof clutch.resolver.k8s.v1.Facet
+                     * @instance
+                     */
+                    Facet.prototype.facet = "";
+
+                    /**
+                     * Facet type.
+                     * @member {string} type
+                     * @memberof clutch.resolver.k8s.v1.Facet
+                     * @instance
+                     */
+                    Facet.prototype.type = "";
+
+                    /**
+                     * Verifies a Facet message.
+                     * @function verify
+                     * @memberof clutch.resolver.k8s.v1.Facet
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    Facet.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.servicename != null && message.hasOwnProperty("servicename"))
+                            if (!$util.isString(message.servicename))
+                                return "servicename: string expected";
+                        if (message.environment != null && message.hasOwnProperty("environment"))
+                            if (!$util.isString(message.environment))
+                                return "environment: string expected";
+                        if (message.facet != null && message.hasOwnProperty("facet"))
+                            if (!$util.isString(message.facet))
+                                return "facet: string expected";
+                        if (message.type != null && message.hasOwnProperty("type"))
+                            if (!$util.isString(message.type))
+                                return "type: string expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a Facet message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof clutch.resolver.k8s.v1.Facet
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {clutch.resolver.k8s.v1.Facet} Facet
+                     */
+                    Facet.fromObject = function fromObject(object) {
+                        if (object instanceof $root.clutch.resolver.k8s.v1.Facet)
+                            return object;
+                        let message = new $root.clutch.resolver.k8s.v1.Facet();
+                        if (object.servicename != null)
+                            message.servicename = String(object.servicename);
+                        if (object.environment != null)
+                            message.environment = String(object.environment);
+                        if (object.facet != null)
+                            message.facet = String(object.facet);
+                        if (object.type != null)
+                            message.type = String(object.type);
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from a Facet message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof clutch.resolver.k8s.v1.Facet
+                     * @static
+                     * @param {clutch.resolver.k8s.v1.Facet} message Facet
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    Facet.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        let object = {};
+                        if (options.defaults) {
+                            object.servicename = "";
+                            object.environment = "";
+                            object.facet = "";
+                            object.type = "";
+                        }
+                        if (message.servicename != null && message.hasOwnProperty("servicename"))
+                            object.servicename = message.servicename;
+                        if (message.environment != null && message.hasOwnProperty("environment"))
+                            object.environment = message.environment;
+                        if (message.facet != null && message.hasOwnProperty("facet"))
+                            object.facet = message.facet;
+                        if (message.type != null && message.hasOwnProperty("type"))
+                            object.type = message.type;
+                        return object;
+                    };
+
+                    /**
+                     * Converts this Facet to JSON.
+                     * @function toJSON
+                     * @memberof clutch.resolver.k8s.v1.Facet
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    Facet.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return Facet;
                 })();
 
                 return v1;

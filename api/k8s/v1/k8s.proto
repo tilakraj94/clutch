@@ -99,6 +99,52 @@ service K8sAPI {
     };
     option (clutch.api.v1.action).type = UPDATE;
   }
+
+  rpc DeleteFacet(DeleteFacetRequest) returns (DeleteFacetResponse) {
+    option (google.api.http) = {
+      post : "/v1/k8s/deleteFacet"
+      body : "*"
+    };
+    option (clutch.api.v1.action).type = DELETE;
+  }
+}
+
+message Facet {
+  string cluster = 1;
+  string name = 2;
+  string namespace = 3;
+
+  // only service facet will be supported for now. We need to add facet types to
+  // this list as they are supported  in clutch.
+  oneof type {
+    ServiceFacet  service_facet = 4;
+  }
+}
+
+message ServiceFacet {
+  clutch.k8s.v1.Deployment deployment = 1;
+  clutch.k8s.v1.HPA hpa = 2;
+  clutch.k8s.v1.Service service = 3;
+}
+
+message DeleteFacetRequest {
+  string clientset = 1 [ (validate.rules).string = {min_bytes : 1} ];
+  string cluster = 2 [ (validate.rules).string = {min_bytes : 1} ];
+  string namespace = 3 [ (validate.rules).string = {min_bytes : 1} ];
+  string name = 4 [ (validate.rules).string = {min_bytes : 1} ];
+  enum Type {
+    UNSPECIFIED = 0;
+    UNKNOWN = 1;
+    SERVICE = 2;
+    CRON = 3;
+    BATCH = 4;
+    STATEFUL_SERVICE = 5;
+    WORKER = 6;
+  }
+  Type type = 5 [ (validate.rules).enum = {defined_only: true} ];
+}
+
+message DeleteFacetResponse {
 }
 
 message DescribePodRequest {
