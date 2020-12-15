@@ -61,7 +61,7 @@ const resolveResource = async (
   const resolver = fields?.query !== undefined ? resolveQuery : resolveFields;
   return resolver(type, limit, fields)
     .then(({ results, failures }) => {
-	  let pbClutch = _.get($pbclutch, type);
+      let pbClutch = _.get($pbclutch, type);
       if (apiProto) {
         pbClutch = _.get(apiProto, type);
       }
