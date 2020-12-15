@@ -168,6 +168,7 @@ message Service {
   } ];
 }
 
+/*
 message Facet {
   option (clutch.resolver.v1.schema) = {
     display_name : "facet"
@@ -207,3 +208,4 @@ message Facet {
   } ];
 
 }
+*/
